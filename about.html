@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>About :: Surkhay Fatullayev</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="./icons/index.ico">
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">[ SF ]</a>
+  <ul class="nav-links">
+    <li><a href="index.html">_home</a></li>
+    <li><a href="about.html" class="active">_about</a></li>
+    <li><a href="projects.html">_projects</a></li>
+    <li><a href="2048.html">_2048</a></li>
+  </ul>
+</nav>
+
+<canvas id="physics-canvas"></canvas>
+
+<main>
+
+  <section class="hero">
+    <pre class="ascii-art">ABOUT
+    </pre>
+    <div class="hero-sub">
+      <span class="blink">&#x25AE;</span>
+      &nbsp;Surkhay Fatullayev &middot; IT Student &middot; Builder
+    </div>
+    <div class="hero-tagline">
+      &gt; loading profile data... <span class="blink">&#x25AE;</span>
+    </div>
+  </section>
+
+  <div class="about-grid" style="position:relative;z-index:1;">
+    <div class="about-sidebar">
+      <div class="meta-block">
+        <div class="meta-label">// degree</div>
+        <div class="meta-value">BSc Information Technology</div>
+      </div>
+      <div class="meta-block">
+        <div class="meta-label">// university</div>
+        <div class="meta-value">ADA University</div>
+      </div>
+      <div class="meta-block">
+        <div class="meta-label">// location</div>
+        <div class="meta-value">Baku, Azerbaijan</div>
+      </div>
+      <div class="meta-block">
+        <div class="meta-label">// interests</div>
+        <div class="meta-value">Games<br>Programming<br>Systems Design</div>
+      </div>
+      <div class="meta-block">
+        <div class="meta-label">// tools</div>
+        <div class="meta-value">VS Code<br>Git / GitHub<br>HTML + CSS + JS</div>
+      </div>
+      <div class="meta-block">
+        <div class="meta-label">// links</div>
+        <div class="meta-value">
+          <a href="https://github.com/SurkhayFatullayev" target="_blank" style="color:inherit;">GitHub --&gt;</a><br>
+          <a href="https://www.codecademy.com/profiles/system4744470101" target="_blank" style="color:inherit;">Codecademy --&gt;</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="about-body-col">
+      <p>I'm Surkhay Fatullayev, a Bachelor of Science in Information Technology student from Baku, Azerbaijan. I'm driven by curiosity about how systems — digital and human — connect and function.</p>
+      <p>My interest in technology started with games. Trying to understand how they worked led me down a rabbit hole of programming, systems design, and problem solving. Today that curiosity shapes how I approach every project I work on.</p>
+      <p>Through my coursework I've gained hands-on experience with web development, version control, and information systems principles. I enjoy translating ideas into working products — whether that's a webpage, a program, or an automated workflow.</p>
+
+      <pre style="font-size:0.72rem;color:var(--faint);margin-top:2rem;line-height:1.4;">
++-------------------------------------+
+|  profile.json                       |
+|  {                                  |
+|    "name": "Surkhay Fatullayev",    |
+|    "type": "student + builder",     |
+|    "status": "online",              |
+|    "level": "senior"                |
+|  }                                  |
++-------------------------------------+
+      </pre>
+    </div>
+  </div>
+
+  <div class="quals-section">
+    <div class="section-label">// qualifications_and_activities</div>
+    <table class="quals-table">
+      <thead>
+        <tr>
+          <th>type</th>
+          <th>name</th>
+          <th>source</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="type-cell">course</td>
+          <td>SITE 1101 &mdash; Principles of Information Systems</td>
+          <td>ADA University</td>
+        </tr>
+        <tr>
+          <td class="type-cell">cert</td>
+          <td>Hour of Code</td>
+          <td>Code.org</td>
+        </tr>
+        <tr>
+          <td class="type-cell">platform</td>
+          <td>Web Development Track</td>
+          <td>Codecademy</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</main>
+
+<div class="physics-hint">[ move mouse to repel &middot; click to attract ]</div>
+
+<footer>
+  <div class="footer-ascii">
+    +----------------------------------------------+<br>
+    | &copy; 2026 Surkhay Fatullayev &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<br>
+    | Baku, Azerbaijan &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<br>
+    +----------------------------------------------+
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+<script src="./js/physics.js"></script>
+</body>
+</html>
