@@ -169,6 +169,19 @@ main {
   font-size: 0.88rem;
 }
 
+.link-job,
+.link-job:visited {
+  color: var(--ink2);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.link-job:hover,
+.link-job:focus-visible {
+  color: var(--ink);
+  text-decoration: none;
+}
+
 /* ── SECTION ── */
 .section-block {
   padding: 2rem 2rem;
@@ -497,3 +510,29 @@ footer {
   .link-row { grid-template-columns: 2rem 1fr 2rem; }
   .link-handle { display: none; }
 }
+
+/* ── LINK STUFF ── */
+.link-row {
+  display: grid;
+  grid-template-columns: 2.5rem 1fr 1fr 2.5rem;
+  align-items: center;
+  padding: 0.8rem 1rem;
+  border-bottom: 1px solid var(--rule);
+  text-decoration: none;
+  color: var(--ink);
+  transition: background 0.15s, color 0.15s;
+  gap: 1rem;
+}
+ 
+.link-row:last-child { border-bottom: none; }
+ 
+.link-row:hover {
+  background: var(--ink);
+  color: var(--bg);
+}
+ 
+.link-index { color: var(--faint); font-size: 0.75rem; }
+.link-name { font-size: 0.9rem; }
+.link-handle { font-size: 0.78rem; color: var(--faint); }
+.link-row:hover .link-handle { color: var(--bg); opacity: 0.7; }
+.link-arrow { text-align: right; font-size: 0.8rem; }
