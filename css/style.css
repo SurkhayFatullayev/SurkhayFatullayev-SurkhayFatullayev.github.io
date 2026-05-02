@@ -6,7 +6,7 @@
   --ink2: #c8c8c0;
   --faint: #9a9a90;
   --rule: #3a3a35;
-  --accent: #181818;
+  --accent: #f5f5f0;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -17,7 +17,6 @@ html {
   font-family: 'Share Tech Mono', monospace;
   font-size: 14px;
   line-height: 1.6;
-  cursor: crosshair;
 }
 
 body {
@@ -27,14 +26,6 @@ body {
   position: relative;
 }
 
-/* ── PHYSICS CANVAS ── */
-#physics-canvas {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  pointer-events: none;
-  z-index: 0;
-}
 
 /* ── NAV ── */
 nav {
@@ -84,32 +75,60 @@ main {
   z-index: 1;
 }
 
+
 /* ── HERO ── */
 .hero {
-  padding: 4rem 2rem 2.5rem;
+  padding: 3.5rem 2.5rem 2.5rem;
   border-bottom: 1px solid var(--ink);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+/* ── PROFILE PIC ── */
+.profile-pic {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 1px solid var(--ink);
+  flex-shrink: 0;
+  display: block;
+}
+
+.hero-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .ascii-art {
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 2rem;
-  line-height: 1.25;
+  font-family: 'VT323', monospace;
+  font-size: clamp(2.6rem, 5.5vw, 4.4rem);
+  line-height: 1.0;
   color: var(--ink);
   white-space: pre;
-  overflow-x: auto;
+  letter-spacing: 0.03em;
+  margin: 0;
 }
 
 .hero-sub {
   font-size: 0.9rem;
   color: var(--ink2);
-  margin-bottom: 0.5rem;
   letter-spacing: 0.05em;
+  margin-top: 0.4rem;
 }
 
 .hero-tagline {
   font-size: 0.82rem;
   color: var(--faint);
   letter-spacing: 0.04em;
+}
+
+@media (max-width: 520px) {
+  .hero { flex-direction: column; align-items: flex-start; gap: 1.2rem; }
+  .ascii-art { font-size: 2.2rem; }
 }
 
 /* ── BLINK ── */
@@ -167,19 +186,6 @@ main {
   color: var(--ink2);
   padding-left: 1.2rem;
   font-size: 0.88rem;
-}
-
-.link-job,
-.link-job:visited {
-  color: var(--ink2);
-  text-decoration: none;
-  transition: color 0.15s;
-}
-
-.link-job:hover,
-.link-job:focus-visible {
-  color: var(--ink);
-  text-decoration: none;
 }
 
 /* ── SECTION ── */
@@ -245,7 +251,6 @@ main {
   font-family: 'Share Tech Mono', monospace;
   font-size: 0.82rem;
   transition: transform 0.12s;
-  cursor: pointer;
 }
 
 .proj-card:hover { transform: translate(-2px, -2px); }
@@ -290,6 +295,20 @@ main {
 }
 
 .proj-card:hover .proj-desc { color: rgba(245,245,240,0.65); }
+
+/* ── TERMINAL LINKS ── */
+.term-body a {
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 1px;
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.term-body a:hover {
+  color: var(--faint);
+  border-color: var(--faint);
+}
 
 .proj-tags {
   font-size: 0.72rem;
@@ -480,18 +499,6 @@ footer {
   line-height: 1.6;
 }
 
-/* ── PHYSICS TOOLTIP ── */
-.physics-hint {
-  position: fixed;
-  bottom: 1.5rem;
-  right: 2rem;
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 0.72rem;
-  color: var(--faint);
-  z-index: 10;
-  letter-spacing: 0.06em;
-  pointer-events: none;
-}
 
 /* ── ANIMATIONS ── */
 @keyframes fadeIn {
@@ -511,28 +518,181 @@ footer {
   .link-handle { display: none; }
 }
 
-/* ── LINK STUFF ── */
-.link-row {
+
+/* Stats */
+.stats-strip {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 2rem 0;
+}
+
+.stat {
+  text-align: center;
+}
+
+.stat-num {
+  display: block;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.stat-lbl {
+  font-size: 0.85rem;
+  opacity: 0.7;
+}
+
+/* Board */
+.board-wrap {
+  position: relative;
+  width: 420px;
+  max-width: 90vw;
+  aspect-ratio: 1;
+  margin: auto;
+}
+
+.board-bg,
+.board-tiles {
+  position: absolute;
+  inset: 0;
+
   display: grid;
-  grid-template-columns: 2.5rem 1fr 1fr 2.5rem;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+
+  padding: 12px;
+  border-radius: 14px;
+}
+
+.board-bg {
+  background: rgba(255,255,255,0.03);
+}
+
+.cell-bg {
+  border-radius: 10px;
+  background: rgba(255,255,255,0.06);
+}
+
+/* Tiles */
+.tile {
+  display: flex;
   align-items: center;
-  padding: 0.8rem 1rem;
-  border-bottom: 1px solid var(--rule);
-  text-decoration: none;
-  color: var(--ink);
-  transition: background 0.15s, color 0.15s;
-  gap: 1rem;
+  justify-content: center;
+
+  border-radius: 10px;
+  font-weight: 800;
+  font-size: 1.4rem;
+
+  transition: all 0.15s ease;
 }
- 
-.link-row:last-child { border-bottom: none; }
- 
-.link-row:hover {
-  background: var(--ink);
-  color: var(--bg);
+
+/* Tile colors */
+.t-0 { opacity: 0; }
+
+.t-2 { background: #eee4da; color: #776e65; }
+.t-4 { background: #ede0c8; color: #776e65; }
+.t-8 { background: #f2b179; }
+.t-16 { background: #f59563; }
+.t-32 { background: #f67c5f; }
+.t-64 { background: #f65e3b; }
+
+.t-128,
+.t-256,
+.t-512 {
+  background: #edcf72;
 }
- 
-.link-index { color: var(--faint); font-size: 0.75rem; }
-.link-name { font-size: 0.9rem; }
-.link-handle { font-size: 0.78rem; color: var(--faint); }
-.link-row:hover .link-handle { color: var(--bg); opacity: 0.7; }
-.link-arrow { text-align: right; font-size: 0.8rem; }
+
+.t-1024,
+.t-2048 {
+  background: #ffb000;
+  color: #111;
+}
+
+.t-high {
+  background: #111;
+  color: #ffb000;
+}
+
+/* Merge animation */
+.tile.merged {
+  animation: pop 0.2s ease;
+}
+
+@keyframes pop {
+  0% { transform: scale(0.85); }
+  100% { transform: scale(1); }
+}
+
+/* Overlay */
+.overlay {
+  position: absolute;
+  inset: 0;
+
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  background: rgba(0,0,0,0.85);
+  border-radius: 14px;
+  text-align: center;
+  z-index: 10;
+}
+
+.overlay.show {
+  display: flex;
+}
+
+.overlay-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+.overlay-sub {
+  margin: 12px 0;
+  opacity: 0.8;
+}
+
+/* Buttons */
+.ctrl-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  border: none;
+  cursor: pointer;
+
+  padding: 8px 14px;
+  border-radius: 8px;
+}
+
+.ctrl-primary {
+  font-weight: 700;
+}
+
+.game-actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* Footer */
+.footer-ascii {
+  white-space: pre;
+  overflow-x: auto;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .board-wrap {
+    width: 95vw;
+  }
+
+  .tile {
+    font-size: 1.1rem;
+  }
+
+  .game-actions {
+    flex-wrap: wrap;
+  }
+}

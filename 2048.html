@@ -1,382 +1,231 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+  <title>About :: Surkhay Fatullayev</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="./icons/index.ico">
+  <link rel="stylesheet" href="./css/style.css">
+</head>
 
-    <head>
-        <title>2048</title>
-        <meta charset="UTF-8">
-        <link rel="icon" type="image/x-icon" href="./icons/2048.ico">
-        <link rel="stylesheet" href="./css/index.css">
-        <style>
-            .game-wrap {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                padding: 80px 20px 40px;
-                gap: 12px;
-            }
+<body>
 
-            .game-header {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                width: 100%;
-                max-width: 440px;
-            }
+  <!-- SVG Icons -->
+  <svg width="0" height="0" style="position: absolute;" aria-hidden="true">
+    <defs>
 
-            .game-header h1 {
-                margin: 0;
-                font-size: 2.5rem;
-            }
+      <symbol
+        id="i-undo"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <polyline points="9 14 4 9 9 4"></polyline>
+        <path d="M20 20v-7a4 4 0 0 0-4-4H4"></path>
+      </symbol>
 
-            .score-panel {
-                display: flex;
-                gap: 10px;
-            }
+      <symbol
+        id="i-refresh"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <polyline points="23 4 23 10 17 10"></polyline>
+        <polyline points="1 20 1 14 7 14"></polyline>
+        <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"></path>
+      </symbol>
 
-            .score-box {
-                background: rgb(19, 154, 191);
-                border-radius: 6px;
-                padding: 6px 14px;
-                text-align: center;
-                min-width: 70px;
-            }
+    </defs>
+  </svg>
 
-            .score-label {
-                font-size: 0.65rem;
-                text-transform: uppercase;
-                letter-spacing: 0.1em;
-                color: white;
-            }
+  <!-- Navigation -->
+  <nav>
+    <a href="index.html" class="logo">[ SF ]</a>
 
-            .score-val {
-                font-size: 1.1rem;
-                font-weight: bold;
-                color: white;
-            }
+    <ul class="nav-links">
+      <li><a href="index.html">_home</a></li>
+      <li><a href="about.html">_about</a></li>
+      <li><a href="projects.html">_projects</a></li>
+      <li><a href="2048.html" class="active">_2048</a></li>
+    </ul>
+  </nav>
 
-            .controls-row {
-                display: flex;
-                gap: 8px;
-                width: 100%;
-                max-width: 440px;
-                justify-content: flex-end;
-            }
+  <!-- Background -->
 
-            .ctrl-btn {
-                background: rgb(19, 154, 191);
-                border: none;
-                border-radius: 4px;
-                color: black;
-                font-style: italic;
-                font-size: 0.85rem;
-                padding: 6px 14px;
-                cursor: pointer;
-            }
+  <main>
 
-            .ctrl-btn:hover {
-                background: rgb(34, 146, 177);
-                color: rgb(1, 95, 196);
-            }
+    <!-- Hero -->
+    <section class="hero">
+      <pre class="ascii-art">2048</pre>
 
-            .board-wrap {
-                position: relative;
-                width: min(440px, 96vw);
-                aspect-ratio: 1;
-            }
+      <div class="hero-text">
+        <div class="hero-sub">
+          <span class="blink">▮</span>
+          merge tiles · reach 2048 · don’t get stuck
+        </div>
 
-            .board-bg {
-                position: absolute; inset: 0;
-                display: grid;
-                grid-template-columns: repeat(4, 1fr);
-                gap: 8px;
-                padding: 8px;
-                background: rgb(22, 171, 197);
-                border-radius: 8px;
-            }
+        <div class="hero-tagline">
+          &gt;
+          <span class="accent">arrow keys</span> ·
+          <span class="accent">WASD</span> ·
+          <span class="accent">swipe</span>
+        </div>
+      </div>
+    </section>
 
-            .cell-bg {
-                background: rgba(255,255,255,0.3);
-                border-radius: 4px;
-            }
+    <!-- Stats -->
+    <section class="stats-strip">
 
-            .board-tiles {
-                position: absolute; inset: 0;
-                display: grid;
-                grid-template-columns: repeat(4, 1fr);
-                gap: 8px;
-                padding: 8px;
-            }
+      <div class="stat">
+        <span id="score" class="stat-num">0</span>
+        <span class="stat-lbl">score</span>
+      </div>
 
-            .tile {
-                border-radius: 4px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-weight: bold;
-                font-size: clamp(1rem, 4vw, 1.5rem);
-                animation: tileAppear 0.15s ease both;
-            }
+      <div class="stat">
+        <span id="best" class="stat-num">0</span>
+        <span class="stat-lbl">best</span>
+      </div>
 
-            .tile.merged { animation: tileMerge 0.2s ease both; }
+      <div class="stat">
+        <span id="moves" class="stat-num">0</span>
+        <span class="stat-lbl">moves</span>
+      </div>
 
-            @keyframes tileAppear {
-                from { transform: scale(0.5); opacity: 0; }
-                to   { transform: scale(1);   opacity: 1; }
-            }
+      <div class="stat">
+        <span id="largest" class="stat-num">2</span>
+        <span class="stat-lbl">largest tile</span>
+      </div>
 
-            @keyframes tileMerge {
-                0%   { transform: scale(1); }
-                40%  { transform: scale(1.15); }
-                100% { transform: scale(1); }
-            }
+    </section>
 
-            .t-0    { background: rgba(255,255,255,0.2); }
-            .t-2    { background: #eee4da; color: #776e65; }
-            .t-4    { background: #ede0c8; color: #776e65; }
-            .t-8    { background: #f2b179; color: white; }
-            .t-16   { background: #f59563; color: white; }
-            .t-32   { background: #f67c5f; color: white; }
-            .t-64   { background: #f65e3b; color: white; }
-            .t-128  { background: #edcf72; color: white; font-size: clamp(0.8rem,3.5vw,1.2rem); }
-            .t-256  { background: #edcc61; color: white; font-size: clamp(0.8rem,3.5vw,1.2rem); }
-            .t-512  { background: #edc850; color: white; font-size: clamp(0.8rem,3.5vw,1.2rem); }
-            .t-1024 { background: #edc53f; color: white; font-size: clamp(0.65rem,3vw,1rem); }
-            .t-2048 { background: #edc22e; color: white; font-size: clamp(0.65rem,3vw,1rem); }
-            .t-high { background: #3c3a32; color: white; font-size: clamp(0.65rem,3vw,1rem); }
+    <!-- Game -->
+    <section class="game-section">
 
-            .overlay {
-                position: absolute; inset: 0;
-                background: rgba(238,228,218,0.75);
-                border-radius: 8px;
-                display: none;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                gap: 12px;
-                z-index: 10;
-            }
+      <div class="terminal-block game-frame">
 
-            .overlay.show { display: flex; }
+        <div class="term-header game-header">
 
-            .overlay-title { font-size: 2rem; margin: 0; }
-            .overlay-sub   { font-size: 0.9rem; margin: 0; }
+          <div>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+          </div>
 
-            .instructions {
-                font-size: 0.82rem;
-                color: #333;
-                text-align: center;
-                margin-left: 0;
-            }
-        </style>
-    </head>
+          <span class="term-title">~/games $ ./2048</span>
 
-    <body>
-        <ul class="navigation">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="projects.html">Projects</a></li>
-            <li><a class="active" href="2048.html">2048</a></li>
-        </ul>
+          <div class="game-actions">
 
-        <div class="game-wrap">
+            <button
+              id="undo-btn"
+              class="ctrl-btn"
+              title="Undo last move"
+            >
+              undo
+            </button>
 
-            <div class="game-header">
-                <h1>2048</h1>
-                <div class="score-panel">
-                    <div class="score-box">
-                        <div class="score-label">Score</div>
-                        <div class="score-val" id="score">0</div>
-                    </div>
-                    <div class="score-box">
-                        <div class="score-label">Best</div>
-                        <div class="score-val" id="best">0</div>
-                    </div>
-                </div>
+            <button
+              id="new-btn"
+              class="ctrl-btn ctrl-primary"
+              title="Start new game"
+            >
+              new game
+            </button>
+
+          </div>
+        </div>
+
+        <div class="term-body game-body">
+
+          <div id="board-wrap" class="board-wrap">
+
+            <div id="board-bg" class="board-bg"></div>
+            <div id="board-tiles" class="board-tiles"></div>
+
+            <div id="overlay" class="overlay">
+
+              <p id="overlay-title" class="overlay-title">
+                Game Over
+              </p>
+
+              <p id="overlay-sub" class="overlay-sub">
+                No more moves!
+              </p>
+
+              <button
+                id="overlay-btn"
+                class="btn-ascii btn-primary"
+              >
+                [ play again ]
+              </button>
+
             </div>
 
-            <div class="controls-row">
-                <button class="ctrl-btn" id="undo-btn">↩ Undo</button>
-                <button class="ctrl-btn" id="new-btn">New Game</button>
-            </div>
-
-            <div class="board-wrap" id="board-wrap">
-                <div class="board-bg" id="board-bg"></div>
-                <div class="board-tiles" id="board-tiles"></div>
-                <div class="overlay" id="overlay">
-                    <p class="overlay-title" id="overlay-title">Game Over</p>
-                    <p class="overlay-sub" id="overlay-sub">No more moves!</p>
-                    <button class="ctrl-btn" id="overlay-btn">Play Again</button>
-                </div>
-            </div>
-
-            <p class="instructions">Arrow keys or WASD to move.</p>
+          </div>
 
         </div>
 
-        <footer>
-            <p class="footer-copy">&copy; 2026 Surkhay Fatullayev</p>
-        </footer>
+      </div>
 
-        <script>
-        (() => {
-            const SIZE = 4;
-            let grid, score, best, prevGrid, prevScore, won;
+    </section>
 
-            const $ = id => document.getElementById(id);
-            const scoreEl = $('score'), bestEl = $('best'), tilesEl = $('board-tiles');
-            const overlay = $('overlay'), overlayTitle = $('overlay-title'), overlaySub = $('overlay-sub');
+    <!-- Controls -->
+    <section class="section-block controls-section">
 
-            const bgEl = $('board-bg');
-            for (let i = 0; i < SIZE * SIZE; i++) {
-                const d = document.createElement('div');
-                d.className = 'cell-bg';
-                bgEl.appendChild(d);
-            }
+      <div class="section-label">// controls</div>
 
-            function emptyGrid() { return Array.from({ length: SIZE }, () => Array(SIZE).fill(0)); }
-            function cloneGrid(g) { return g.map(r => [...r]); }
+      <div class="kbd-grid">
 
-            function addRandom(g) {
-                const empty = [];
-                g.forEach((row, r) => row.forEach((v, c) => { if (!v) empty.push([r, c]); }));
-                if (!empty.length) return false;
-                const [r, c] = empty[Math.floor(Math.random() * empty.length)];
-                g[r][c] = Math.random() < 0.9 ? 2 : 4;
-                return true;
-            }
+        <div class="kbd-row">
+          <span class="kbd-label">move</span>
 
-            function init() {
-                grid = emptyGrid(); score = 0; won = false; prevGrid = null; prevScore = 0;
-                addRandom(grid); addRandom(grid);
-                best = parseInt(localStorage.getItem('2048best') || '0');
-                overlay.classList.remove('show');
-                render(); updateScores();
-            }
+          <kbd>↑</kbd>
+          <kbd>↓</kbd>
+          <kbd>←</kbd>
+          <kbd>→</kbd>
 
-            function slideRow(row) {
-                let vals = row.filter(v => v), merged = [], gained = 0;
-                for (let i = 0; i < vals.length; i++) {
-                    if (i + 1 < vals.length && vals[i] === vals[i + 1]) {
-                        const m = vals[i] * 2;
-                        merged.push({ val: m, isMerge: true });
-                        gained += m; i++;
-                    } else {
-                        merged.push({ val: vals[i], isMerge: false });
-                    }
-                }
-                while (merged.length < SIZE) merged.push({ val: 0, isMerge: false });
-                return { cells: merged, gained };
-            }
+          <span class="kbd-or">or</span>
 
-            function move(dir) {
-                prevGrid = cloneGrid(grid); prevScore = score;
-                let moved = false, merges = [], gained = 0;
-                const rotate     = g => g[0].map((_, c) => g.map(r => r[c]).reverse());
-                const rotateBack = g => g[0].map((_, c) => g.map(r => r[SIZE - 1 - c]));
-                let g = cloneGrid(grid);
-                if (dir === 'up')    g = rotate(g);
-                if (dir === 'down')  g = rotateBack(g);
-                if (dir === 'right') g = g.map(r => [...r].reverse());
-                g = g.map((row, r) => {
-                    const { cells, gained: g2 } = slideRow(row);
-                    gained += g2;
-                    row.forEach((v, c) => {
-                        if (v !== cells[c].val) moved = true;
-                        if (cells[c].isMerge) merges.push([r, c]);
-                    });
-                    return cells.map(x => x.val);
-                });
-                if (dir === 'up')    g = rotateBack(g);
-                if (dir === 'down')  g = rotate(g);
-                if (dir === 'right') g = g.map(r => [...r].reverse());
-                if (!moved) return;
-                score += gained;
-                if (score > best) { best = score; localStorage.setItem('2048best', best); }
-                grid = g;
-                addRandom(grid);
-                render(merges); updateScores(); checkEnd();
-            }
+          <kbd>W</kbd>
+          <kbd>A</kbd>
+          <kbd>S</kbd>
+          <kbd>D</kbd>
+        </div>
 
-            function canMove(g) {
-                for (let r = 0; r < SIZE; r++)
-                    for (let c = 0; c < SIZE; c++) {
-                        if (!g[r][c]) return true;
-                        if (c + 1 < SIZE && g[r][c] === g[r][c+1]) return true;
-                        if (r + 1 < SIZE && g[r][c] === g[r+1][c]) return true;
-                    }
-                return false;
-            }
+        <div class="kbd-row">
+          <span class="kbd-label">touch</span>
+          <span>swipe in any direction on the board</span>
+        </div>
 
-            function checkEnd() {
-                if (!won && grid.some(r => r.includes(2048))) {
-                    won = true;
-                    overlayTitle.textContent = '🏆 You Win!';
-                    overlaySub.textContent = 'You reached 2048! Keep going?';
-                    $('overlay-btn').textContent = 'Keep Playing';
-                    overlay.classList.add('show'); return;
-                }
-                if (!canMove(grid)) {
-                    overlayTitle.textContent = 'Game Over';
-                    overlaySub.textContent = 'Final score: ' + score;
-                    $('overlay-btn').textContent = 'Play Again';
-                    overlay.classList.add('show');
-                }
-            }
+        <div class="kbd-row">
+          <span class="kbd-label">goal</span>
+          <span>
+            merge tiles until one reaches <kbd>2048</kbd>
+            — the amber prize
+          </span>
+        </div>
 
-            function tileClass(val) {
-                if (!val) return 't-0';
-                if (val <= 2048) return 't-' + val;
-                return 't-high';
-            }
+      </div>
 
-            function render(merges = []) {
-                tilesEl.innerHTML = '';
-                const mergeSet = new Set(merges.map(([r, c]) => r * SIZE + c));
-                grid.forEach((row, r) => row.forEach((val, c) => {
-                    const d = document.createElement('div');
-                    d.className = `tile ${tileClass(val)}`;
-                    if (mergeSet.has(r * SIZE + c) && val) d.classList.add('merged');
-                    d.textContent = val || '';
-                    tilesEl.appendChild(d);
-                }));
-            }
+    </section>
 
-            function updateScores() {
-                scoreEl.textContent = score;
-                bestEl.textContent  = best;
-            }
+  </main>
 
-            document.addEventListener('keydown', e => {
-                const map = { ArrowUp:'up', ArrowDown:'down', ArrowLeft:'left', ArrowRight:'right',
-                              w:'up', s:'down', a:'left', d:'right', W:'up', S:'down', A:'left', D:'right' };
-                if (map[e.key]) { e.preventDefault(); move(map[e.key]); }
-            });
+  <footer>
+    <div class="footer-ascii">
++----------------------------------------------+
+| © 2026 Surkhay Fatullayev                    |
+| Baku, Azerbaijan                             |
++----------------------------------------------+
+    </div>
+  </footer>
 
-            let tx = 0, ty = 0;
-            const board = $('board-wrap');
-            board.addEventListener('touchstart', e => { tx = e.touches[0].clientX; ty = e.touches[0].clientY; }, { passive: true });
-            board.addEventListener('touchend', e => {
-                const dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
-                if (Math.max(Math.abs(dx), Math.abs(dy)) < 20) return;
-                if (Math.abs(dx) > Math.abs(dy)) move(dx > 0 ? 'right' : 'left');
-                else move(dy > 0 ? 'down' : 'up');
-            }, { passive: true });
+  <script src="./js/2048.js"></script>
 
-            $('new-btn').addEventListener('click', init);
-            $('undo-btn').addEventListener('click', () => {
-                if (!prevGrid) return;
-                grid = prevGrid; score = prevScore; prevGrid = null;
-                overlay.classList.remove('show');
-                render(); updateScores();
-            });
-            $('overlay-btn').addEventListener('click', () => {
-                if (won && canMove(grid)) { overlay.classList.remove('show'); won = false; }
-                else init();
-            });
-
-            init();
-        })();
-        </script>
-
-    </body>
+</body>
 </html>
